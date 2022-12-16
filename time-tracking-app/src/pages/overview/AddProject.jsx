@@ -8,12 +8,12 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Input,
 } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { DataContext } from "../../contexts/DataContext";
 import ProjectColor from "./ProjectColor";
+import AddProjectInput from "./AddProjectInput";
 
 function AddProject() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,6 +75,7 @@ function AddProject() {
   return (
     <>
       <Button
+        data-testid="buttonId-1"
         onClick={onOpen}
         m="1em"
         colorScheme="green"
@@ -90,17 +91,14 @@ function AddProject() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent borderRadius={0} h="35em">
-          <ModalHeader>New Project</ModalHeader>
-          <ModalCloseButton />
+          <ModalHeader data-testid="headerId-1">New Project</ModalHeader>
+          <ModalCloseButton data-testid="buttonId-2"/>
           <ModalBody>
-            <Input
-              type="text"
-              placeholder="Project name"
-              borderRadius={0}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              value={inputValue}
-            ></Input>
+            <AddProjectInput
+              handleChange={handleChange}
+              handleKeyDown={handleKeyDown}
+              inputValue={inputValue}
+            ></AddProjectInput>
             <ProjectColor addProjectColor={addProjectColor} />
           </ModalBody>
 

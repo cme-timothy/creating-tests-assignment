@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 
 function ProjectColor({ addProjectColor }) {
-  const [bg, setBg] = useState("blue.500");
+  const [bg, setBg] = useState("blue");
 
   function handleColorClick(color) {
     setBg(color);
@@ -19,42 +19,43 @@ function ProjectColor({ addProjectColor }) {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button mt="1em" bg={bg} w="3em" h="3em"></Button>
+        <Button data-testid="colorId-1" mt="1em" bg={bg} w="3em" h="3em"></Button>
       </PopoverTrigger>
       <PopoverContent align="center" ml="0.5em" w="100%">
-        <PopoverArrow ml="-0.5em"/>
+        <PopoverArrow ml="-0.5em" />
         <PopoverBody>
           <Button
-            onClick={() => handleColorClick("blue.500")}
-            bg="blue.500"
+            data-testid="buttonId-3"
+            onClick={() => handleColorClick("blue")}
+            bg="blue"
             w="3em"
             h="3em"
           ></Button>
           <Button
-            onClick={() => handleColorClick("pink.500")}
+            onClick={() => handleColorClick("pink")}
             ml="0.5em"
-            bg="pink.500"
+            bg="pink"
             w="3em"
             h="3em"
           ></Button>
           <Button
-            onClick={() => handleColorClick("orange.500")}
+            onClick={() => handleColorClick("orange")}
             ml="0.5em"
-            bg="orange.500"
+            bg="orange"
             w="3em"
             h="3em"
           ></Button>
           <Button
-            onClick={() => handleColorClick("cyan.500")}
+            onClick={() => handleColorClick("cyan")}
             ml="0.5em"
-            bg="cyan.500"
+            bg="cyan"
             w="3em"
             h="3em"
           ></Button>
           <Button
-            onClick={() => handleColorClick("green.500")}
+            onClick={() => handleColorClick("green")}
             ml="0.5em"
-            bg="green.500"
+            bg="green"
             w="3em"
             h="3em"
           ></Button>
