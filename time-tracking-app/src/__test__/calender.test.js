@@ -16,16 +16,29 @@ const calenderYear = {
   November: 30,
   December: 31,
 };
+const month = Number(new Date().toLocaleString().slice(3, 5));
+const year = Number(new Date().toLocaleString().slice(6, 10));
+describe("render Calender component and display the correct calender dates", () => {
+  test("should render the calender component and have the correct date displayed", () => {
+    const correctDate = `${Object.keys(calenderYear)[month - 1]} ${year}`;
+    function handleCalender(date) {
+      console.log(`Is this the correct date? ${date}`);
+    }
+    render(<Calender date={handleCalender} />);
+    const element = screen.getByTestId("calenderId-1");
+    expect(element).toBeInTheDocument();
+    expect(element).toHaveTextContent(correctDate);
+  });
 
-test("should render calender component and have the correct date displayed", () => {
-  const month = Number(new Date().toLocaleString().slice(3, 5));
-  const year = Number(new Date().toLocaleString().slice(6, 10));
-  const correctDate = `${Object.keys(calenderYear)[month - 1]} ${year}`;
-  function handleCalender(date) {
-    console.log(`Is this the correct date? ${date}`);
-  }
-  render(<Calender date={handleCalender} />);
-  const linkElement = screen.getByTestId("calenderId-1");
-  expect(linkElement).toBeInTheDocument();
-  expect(linkElement).toHaveTextContent(correctDate);
+  test("should render the correct amount of Day Button elements", () => {
+    const correctDate = `${Object.keys(calenderYear)[month - 1]}`;
+    render(<Calender date={() => null} />);
+    const element = screen.getByText(
+      `${Object.values(calenderYear)[month - 1]}`
+    );
+    expect(element).toBeInTheDocument();
+    expect(element).toHaveTextContent(
+      Object.values(calenderYear)[month - 1]
+    );
+  });
 });

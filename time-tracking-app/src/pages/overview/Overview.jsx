@@ -1,4 +1,4 @@
-import { Flex, Heading, Button, Box, Tooltip, Text } from "@chakra-ui/react";
+import { Flex, Heading, Box, Text } from "@chakra-ui/react";
 import { Helmet } from "react-helmet-async";
 import { useState, useEffect, useContext } from "react";
 import AddProject from "../overview/AddProject";
@@ -7,6 +7,7 @@ import Project from "../../components/Project";
 import Task from "../../components/Task";
 import { DataContext } from "../../contexts/DataContext";
 import { v4 as uuidv4 } from "uuid";
+import OverviewButton from "./OverviewButton";
 
 function Overview() {
   const [menuToggle, setMenuToggle] = useState(true);
@@ -16,6 +17,10 @@ function Overview() {
     getProjects();
     getTasks();
   }, []);
+
+  function handleMenuClick(value) {
+    setMenuToggle(value);
+  }
 
   return (
     <>
@@ -27,31 +32,18 @@ function Overview() {
           Overview
         </Heading>
         <Flex justifyContent="space-evenly">
-          <Button
-            fontSize="xl"
-            onClick={() => setMenuToggle(true)}
-            borderRadius={0}
-            w="100%"
-            bg={menuToggle ? "gray.400" : "gray.100"}
-            _active={{ bg: menuToggle ? "gray.400" : "gray.100" }}
-            _hover={{ bg: "gray.400" }}
-          >
-            Projects
-          </Button>
-          <Tooltip label={projects.length === 0 && "Create a Project first"}>
-            <Button
-              isDisabled={projects.length === 0 ? true : false}
-              fontSize="xl"
-              onClick={() => setMenuToggle(false)}
-              borderRadius={0}
-              w="100%"
-              bg={!menuToggle ? "gray.400" : "gray.100"}
-              _active={{ bg: !menuToggle ? "gray.400" : "gray.100" }}
-              _hover={{ bg: "gray.400" }}
-            >
-              Tasks
-            </Button>
-          </Tooltip>
+          <OverviewButton
+            name={"Projects"}
+            menuClick={handleMenuClick}
+            menuToggle={menuToggle}
+            projects={projects}
+          />
+          <OverviewButton
+            name={"Tasks"}
+            menuClick={handleMenuClick}
+            menuToggle={menuToggle}
+            projects={projects}
+          />
         </Flex>
       </Box>
       <Box mt="11.5em" mb="8em">
