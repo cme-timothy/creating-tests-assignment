@@ -21,9 +21,7 @@ const year = Number(new Date().toLocaleString().slice(6, 10));
 describe("render Calender component and display the correct calender dates", () => {
   test("should render the calender component and have the correct date displayed", () => {
     const correctDate = `${Object.keys(calenderYear)[month - 1]} ${year}`;
-    function handleCalender(date) {
-      console.log(`Is this the correct date? ${date}`);
-    }
+    function handleCalender() {}
     render(<Calender date={handleCalender} />);
     const element = screen.getByTestId("calenderId-1");
     expect(element).toBeInTheDocument();
@@ -37,8 +35,6 @@ describe("render Calender component and display the correct calender dates", () 
       `${Object.values(calenderYear)[month - 1]}`
     );
     expect(element).toBeInTheDocument();
-    expect(element).toHaveTextContent(
-      Object.values(calenderYear)[month - 1]
-    );
+    expect(element).toHaveTextContent(Object.values(calenderYear)[month - 1]);
   });
 });
