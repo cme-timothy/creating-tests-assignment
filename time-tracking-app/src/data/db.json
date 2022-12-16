@@ -1,31 +1,4 @@
 {
-  "projects": [
-    {
-      "name": "project 1",
-      "color": "blue.500",
-      "id": 1
-    }
-  ],
-  "tasks": [
-    {
-      "project": "project 1",
-      "color": "blue.500",
-      "name": "Task 1",
-      "date": "15 December 2022",
-      "time": "00:02:02",
-      "seconds": 122,
-      "projectId": "1",
-      "id": 1
-    },
-    {
-      "project": "project 1",
-      "color": "blue.500",
-      "name": "Task 2",
-      "date": "15 December 2022",
-      "time": "00:00:32",
-      "seconds": 32,
-      "projectId": "1",
-      "id": 2
-    }
-  ]
+  "projects": [],
+  "tasks": []
 }
