@@ -13,7 +13,7 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { DataContext } from "../../contexts/DataContext";
 import ProjectColor from "./ProjectColor";
-import AddProjectInput from "./AddProjectInput";
+import AddInput from "./AddInput";
 
 function AddProject() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -92,18 +92,20 @@ function AddProject() {
         <ModalOverlay />
         <ModalContent borderRadius={0} h="35em">
           <ModalHeader data-testid="headerId-1">New Project</ModalHeader>
-          <ModalCloseButton data-testid="buttonId-2"/>
+          <ModalCloseButton data-testid="buttonId-2" />
           <ModalBody>
-            <AddProjectInput
+            <AddInput
+              name={"Project name"}
               handleChange={handleChange}
               handleKeyDown={handleKeyDown}
               inputValue={inputValue}
-            ></AddProjectInput>
+            ></AddInput>
             <ProjectColor addProjectColor={addProjectColor} />
           </ModalBody>
 
           <ModalFooter>
             <Button
+              data-testid="buttonId-3"
               colorScheme="green"
               w="100%"
               borderRadius={0}

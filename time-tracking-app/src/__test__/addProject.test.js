@@ -54,7 +54,7 @@ describe("test open/close project modal, type into input and select project colo
     expect(buttonOpenElement).toBeInTheDocument();
     fireEvent.click(buttonOpenElement);
 
-    const buttonElement = screen.getByTestId("buttonId-3");
+    const buttonElement = screen.getByTestId("buttonId-4");
     expect(buttonElement).toBeInTheDocument();
     fireEvent.click(buttonElement);
 
@@ -63,5 +63,22 @@ describe("test open/close project modal, type into input and select project colo
     expect(colorElement).toHaveStyle(`
     background-color: blue;
     `);
+  });
+
+  test("should be able to click button add project after input", async () => {
+    renderAddProject();
+    const buttonOpenElement = screen.getByTestId("buttonId-1");
+    expect(buttonOpenElement).toBeInTheDocument();
+    fireEvent.click(buttonOpenElement);
+
+    const inputElement = screen.getByTestId("inputId-1");
+    expect(inputElement).toBeInTheDocument();
+    fireEvent.change(inputElement, { target: { value: "Create Website" } });
+    expect(inputElement.value).toBe("Create Website");
+
+    const buttonAddElement = screen.getByTestId("buttonId-3");
+    expect(buttonAddElement).toBeInTheDocument();
+    fireEvent.click(buttonAddElement);
+    await waitForElementToBeRemoved(() => screen.getByTestId("headerId-1"));
   });
 });

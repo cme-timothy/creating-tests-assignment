@@ -25,7 +25,7 @@ function ProjectColor({ addProjectColor }) {
         <PopoverArrow ml="-0.5em" />
         <PopoverBody>
           <Button
-            data-testid="buttonId-3"
+            data-testid="buttonId-4"
             onClick={() => handleColorClick("blue")}
             bg="blue"
             w="3em"
