@@ -9,12 +9,15 @@ import "@testing-library/jest-dom";
 import { DataProvider } from "../contexts/DataContext";
 import AddTask from "../pages/overview/AddTask";
 import { calenderYear, localMonth } from "../data/calenderData";
+import { v4 as uuidv4 } from "uuid";
 
 const renderAddTask = () => {
   const component = render(
     <Router>
       <DataProvider>
-        <AddTask projects={[{ name: "project", color: "blue", id: "1" }]} />
+        <AddTask
+          projects={[{ name: "Create Website", color: "blue", id: uuidv4() }]}
+        />
       </DataProvider>
     </Router>
   );
