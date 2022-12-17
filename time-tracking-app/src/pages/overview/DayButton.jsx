@@ -4,6 +4,7 @@ function DayButton(props) {
   return (
     <>
       <Button
+        data-testid={`${props.today}`}
         onClick={() => props.activeDay(props.today)}
         bg={props.today == props.day ? "blue.200" : "none"}
         w="2em"

@@ -3,33 +3,18 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import DayButton from "./DayButton";
+import {
+  calenderYear,
+  localDay,
+  localMonth,
+  localYear,
+} from "../../data/calenderData";
 
 function Calender({ date }) {
   const [days, setDays] = useState([]);
-  const [day, setDay] = useState(
-    Number(new Date().toLocaleString().slice(0, 2))
-  );
-  const [month, setMonth] = useState(
-    Number(new Date().toLocaleString().slice(3, 5))
-  );
-  const [year, setYear] = useState(
-    Number(new Date().toLocaleString().slice(6, 10))
-  );
-
-  const calenderYear = {
-    January: 31,
-    February: 28,
-    March: 31,
-    April: 30,
-    May: 31,
-    June: 30,
-    July: 31,
-    August: 31,
-    September: 30,
-    October: 31,
-    November: 30,
-    December: 31,
-  };
+  const [day, setDay] = useState(localDay);
+  const [month, setMonth] = useState(localMonth);
+  const [year, setYear] = useState(localYear);
 
   useEffect(() => {
     const days = [];

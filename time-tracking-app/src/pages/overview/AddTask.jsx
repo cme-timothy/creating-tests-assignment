@@ -8,7 +8,6 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Input,
   Text,
   Menu,
   MenuButton,
@@ -20,6 +19,7 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { DataContext } from "../../contexts/DataContext";
 import Calender from "./Calender";
+import AddInput from "./AddInput";
 
 function AddTask(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -93,6 +93,7 @@ function AddTask(props) {
   return (
     <>
       <Button
+        data-testid="buttonId-1"
         onClick={onOpen}
         m="1em"
         colorScheme="green"
@@ -108,17 +109,15 @@ function AddTask(props) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent borderRadius={0} h="35em">
-          <ModalHeader>New Task</ModalHeader>
-          <ModalCloseButton />
+          <ModalHeader data-testid="headerId-1">New Task</ModalHeader>
+          <ModalCloseButton data-testid="buttonId-2" />
           <ModalBody>
-            <Input
-              type="text"
-              placeholder="Task name"
-              borderRadius={0}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              value={inputValue}
-            ></Input>
+            <AddInput
+              name={"Task name"}
+              handleChange={handleChange}
+              handleKeyDown={handleKeyDown}
+              inputValue={inputValue}
+            ></AddInput>
             <Menu>
               <MenuButton
                 border={0}
@@ -151,6 +150,7 @@ function AddTask(props) {
 
           <ModalFooter>
             <Button
+              data-testid="buttonId-3"
               colorScheme="green"
               w="100%"
               borderRadius={0}
