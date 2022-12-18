@@ -1,25 +1,43 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import {
-  fireEvent,
   render,
   screen,
   waitForElementToBeRemoved,
   cleanup,
+  fireEvent,
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { DataProvider } from "../contexts/DataContext";
-import AddTask from "../pages/overview/AddTask";
 import { calenderYear, localMonth } from "../data/calenderData";
-import { v4 as uuidv4 } from "uuid";
-import Overview from "../pages/overview/Overview";
-import { HelmetProvider } from "react-helmet-async";
+import userEvent from "@testing-library/user-event";
+import mockAxios from "jest-mock-axios";
+import AddTask from "../pages/overview/AddTask";
+
+const projects = {
+  data: [
+    {
+      name: "Create Website",
+      color: "blue",
+      id: 1,
+    },
+  ],
+};
+
+const postTasks = {
+  project: "Create Website",
+  color: "blue",
+  name: "Create modal",
+  date: "18 December 2022",
+  time: "00:00:00",
+  seconds: 0,
+};
 
 const renderAddTask = () => {
   const component = render(
     <Router>
       <DataProvider>
         <AddTask
-          projects={[{ name: "Create Website", color: "blue", id: uuidv4() }]}
+          projects={[{ name: "Create Website", color: "blue", id: 1 }]}
         />
       </DataProvider>
     </Router>
@@ -28,42 +46,31 @@ const renderAddTask = () => {
   return component;
 };
 
-const renderOverview = () => {
-  const component = render(
-    <HelmetProvider>
-      <Router>
-        <DataProvider>
-          <Overview />
-        </DataProvider>
-      </Router>
-    </HelmetProvider>
-  );
-
-  return component;
-};
-
 afterEach(cleanup);
 
-describe("test open/close task modal, type into input, select task date and delete task on click", () => {
+describe("test open/close task modal, type into input, select task date and add task after input", () => {
+  afterAll(() => {
+    return mockAxios.reset();
+  });
   test("should open and close task modal", async () => {
     renderAddTask();
     const buttonOpenElement = screen.getByTestId("buttonId-1");
     expect(buttonOpenElement).toBeInTheDocument();
-    fireEvent.click(buttonOpenElement);
+    userEvent.click(buttonOpenElement);
     const headerElement = screen.getByTestId("headerId-1");
     expect(headerElement).toBeInTheDocument();
 
     const buttonCloseElement = screen.getByTestId("buttonId-2");
     expect(buttonCloseElement).toBeInTheDocument();
-    fireEvent.click(buttonCloseElement);
+    userEvent.click(buttonCloseElement);
     await waitForElementToBeRemoved(() => screen.getByTestId("headerId-1"));
   });
 
-  test("should be able to type into input", () => {
+  test("should be able to type into input", async () => {
     renderAddTask();
     const buttonOpenElement = screen.getByTestId("buttonId-1");
     expect(buttonOpenElement).toBeInTheDocument();
-    fireEvent.click(buttonOpenElement);
+    userEvent.click(buttonOpenElement);
 
     const inputElement = screen.getByTestId("inputId-1");
     expect(inputElement).toBeInTheDocument();
@@ -71,11 +78,11 @@ describe("test open/close task modal, type into input, select task date and dele
     expect(inputElement.value).toBe("Create modal");
   });
 
-  test("should be able to select task date, if selected .map rerenders", () => {
+  test("should be able to select task date, if selected .map rerenders", async () => {
     renderAddTask();
     const buttonOpenElement = screen.getByTestId("buttonId-1");
     expect(buttonOpenElement).toBeInTheDocument();
-    fireEvent.click(buttonOpenElement);
+    userEvent.click(buttonOpenElement);
 
     const buttonDayElement = screen.getByTestId(
       `${Object.values(calenderYear)[localMonth - 1]}`
@@ -84,15 +91,18 @@ describe("test open/close task modal, type into input, select task date and dele
     expect(buttonDayElement).toHaveTextContent(
       Object.values(calenderYear)[localMonth - 1]
     );
-    fireEvent.click(buttonDayElement);
+    userEvent.click(buttonDayElement);
     expect(buttonDayElement).not.toBeInTheDocument();
   });
 
-  test("should be able to click button add task after input and delete project on click", async () => {
-    renderOverview();
+  test("should be able to click button add task after input", async () => {
+    mockAxios.get.mockResolvedValue(projects);
+    mockAxios.post.mockResolvedValue(postTasks);
+
+    renderAddTask();
     const buttonOpenElement = screen.getByTestId("buttonId-1");
     expect(buttonOpenElement).toBeInTheDocument();
-    fireEvent.click(buttonOpenElement);
+    userEvent.click(buttonOpenElement);
 
     const inputElement = screen.getByTestId("inputId-1");
     expect(inputElement).toBeInTheDocument();
@@ -101,11 +111,8 @@ describe("test open/close task modal, type into input, select task date and dele
 
     const buttonAddElement = screen.getByTestId("buttonId-3");
     expect(buttonAddElement).toBeInTheDocument();
-    fireEvent.click(buttonAddElement);
-    await waitForElementToBeRemoved(() => screen.getByTestId("headerId-1"));
+    userEvent.click(buttonAddElement);
 
-    const removeButtonElement = screen.getByTestId("Create modal");
-    fireEvent.click(removeButtonElement);
-    await waitForElementToBeRemoved(() => screen.getByTestId("Create modal"));
+    await waitForElementToBeRemoved(() => screen.getByTestId("headerId-1"));
   });
 });
