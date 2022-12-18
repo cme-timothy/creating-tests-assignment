@@ -1,12 +1,10 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
 import { Helmet } from "react-helmet-async";
 import { useEffect, useState, useContext } from "react";
 import { DataContext } from "../../contexts/DataContext";
-import Task from "../../components/Task";
-import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import useTimer from "../../hooks/useTimer";
 import TimerHeading from "./TimerHeading";
+import TaskList from "./TaskList";
 
 function Timer() {
   const { tasks, getTasks } = useContext(DataContext);
@@ -90,30 +88,13 @@ function Timer() {
         <title>Task timer</title>
       </Helmet>
       <TimerHeading timer={timer} task={task} />
-      <Box mt="17.3em" mb="8em">
-        {tasks.map((taskData) => {
-          return (
-            <Flex direction="column" key={uuidv4()}>
-              <Text ml="1em" fontSize="lg" color="gray.500">
-                {taskData.date}
-              </Text>
-              <Task
-                name={taskData.name}
-                color={taskData.color}
-                id={taskData.id}
-                startingTime={taskData.time}
-                seconds={taskData.seconds}
-                play
-                timer
-                currentTime={timer}
-                timerId={taskId}
-                playButton={playButton}
-                handleTime={handleTime}
-              />
-            </Flex>
-          );
-        })}
-      </Box>
+      <TaskList
+        tasks={tasks}
+        currentTime={timer}
+        taskId={taskId}
+        playButton={playButton}
+        handleTime={handleTime}
+      />
     </>
   );
 }

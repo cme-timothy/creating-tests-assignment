@@ -42,7 +42,11 @@ function Project(props) {
       <Text mt="0.1em" fontSize="lg">
         {props.name}
       </Text>
-      <Button bg="gray.200" onClick={handleClick}>
+      <Button
+        data-testid={`${props.name}`}
+        bg="gray.200"
+        onClick={handleClick}
+      >
         <FontAwesomeIcon icon={faTrash} size="lg" />
       </Button>
     </Flex>

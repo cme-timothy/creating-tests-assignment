@@ -48,22 +48,28 @@ function Task(props) {
       borderColor={props.color}
     >
       <Box>
-        <Text mt="0.1em" fontSize="lg">
+        <Text data-testid={`${props.name}`} mt="0.1em" fontSize="lg">
           {props.name}
         </Text>
         {props.timer && (
-          <Text fontSize="md" color="gray.500">
-            {props.timerId === props.id ? props.currentTime : props.startingTime}
+          <Text data-testid={`${props.name}-time`} fontSize="md" color="gray.500">
+            {props.timerId === props.id
+              ? props.currentTime
+              : props.startingTime}
           </Text>
         )}
       </Box>
       {!props.play && !props.timer && (
-        <Button bg="gray.200" onClick={handleDelete}>
+        <Button
+          data-testid={`${props.name}`}
+          bg="gray.200"
+          onClick={handleDelete}
+        >
           <FontAwesomeIcon icon={faTrash} size="lg" />
         </Button>
       )}
       {props.play && (
-        <Button p={0} mr="1em" bg="gray.200" onClick={handlePlayButton}>
+        <Button data-testid={`${props.name}-play`} p={0} mr="1em" bg="gray.200" onClick={handlePlayButton}>
           {props.timerId !== props.id ? (
             <Box color="green.500">
               <FontAwesomeIcon icon={faCirclePlay} size="2xl" />
