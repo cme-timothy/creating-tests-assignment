@@ -54,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.29.0",
     "@svgr/webpack": "^6.2.1"
   },
   "overrides": {

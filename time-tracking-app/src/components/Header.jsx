@@ -50,6 +50,7 @@ function Header() {
     <Flex justify="space-around" bg="gray.200" p="1em">
       <Link as={ReachLink} to="/Timer">
         <Button
+          data-testid="buttonId-timer"
           onClick={() => handleClick("white", "gray.200", "gray.200")}
           w="6em"
           h="4em"
@@ -63,6 +64,7 @@ function Header() {
       </Link>
       <Link as={ReachLink} to="/History">
         <Button
+          data-testid="buttonId-history"
           onClick={() => handleClick("gray.200", "white", "gray.200")}
           w="6em"
           h="4em"

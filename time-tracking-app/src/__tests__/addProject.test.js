@@ -78,11 +78,11 @@ describe("test open/close project modal, type into input, select project color a
     expect(buttonOpenElement).toBeInTheDocument();
     userEvent.click(buttonOpenElement);
 
-    const buttonElement = screen.getByTestId("buttonId-4");
+    const buttonElement = screen.getByTestId("colorBlue");
     expect(buttonElement).toBeInTheDocument();
     userEvent.click(buttonElement);
 
-    const colorElement = screen.getByTestId("colorId-1");
+    const colorElement = screen.getByTestId("selectColor");
     expect(colorElement).toBeInTheDocument();
     expect(colorElement).toHaveStyle(`
     background-color: blue;

@@ -19,19 +19,26 @@ function ProjectColor({ addProjectColor }) {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button data-testid="colorId-1" mt="1em" bg={bg} w="3em" h="3em"></Button>
+        <Button
+          data-testid="selectColor"
+          mt="1em"
+          bg={bg}
+          w="3em"
+          h="3em"
+        ></Button>
       </PopoverTrigger>
       <PopoverContent align="center" ml="0.5em" w="100%">
         <PopoverArrow ml="-0.5em" />
         <PopoverBody>
           <Button
-            data-testid="buttonId-4"
+            data-testid="colorBlue"
             onClick={() => handleColorClick("blue")}
             bg="blue"
             w="3em"
             h="3em"
           ></Button>
           <Button
+            data-testid="colorPink"
             onClick={() => handleColorClick("pink")}
             ml="0.5em"
             bg="pink"
