@@ -1,5 +1,7 @@
 import useTimer from "../hooks/useTimer";
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook, cleanup } from "@testing-library/react";
+
+afterEach(cleanup);
 
 test("timer output = 00:00:01 if setTimer(1)", () => {
   const { result } = renderHook(useTimer);

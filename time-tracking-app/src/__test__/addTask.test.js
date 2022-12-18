@@ -4,12 +4,15 @@ import {
   render,
   screen,
   waitForElementToBeRemoved,
+  cleanup,
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { DataProvider } from "../contexts/DataContext";
 import AddTask from "../pages/overview/AddTask";
 import { calenderYear, localMonth } from "../data/calenderData";
 import { v4 as uuidv4 } from "uuid";
+import Overview from "../pages/overview/Overview";
+import { HelmetProvider } from "react-helmet-async";
 
 const renderAddTask = () => {
   const component = render(
@@ -25,7 +28,23 @@ const renderAddTask = () => {
   return component;
 };
 
-describe("test open/close task modal, type into input and select task date", () => {
+const renderOverview = () => {
+  const component = render(
+    <HelmetProvider>
+      <Router>
+        <DataProvider>
+          <Overview />
+        </DataProvider>
+      </Router>
+    </HelmetProvider>
+  );
+
+  return component;
+};
+
+afterEach(cleanup);
+
+describe("test open/close task modal, type into input, select task date and delete task on click", () => {
   test("should open and close task modal", async () => {
     renderAddTask();
     const buttonOpenElement = screen.getByTestId("buttonId-1");
@@ -69,8 +88,8 @@ describe("test open/close task modal, type into input and select task date", () 
     expect(buttonDayElement).not.toBeInTheDocument();
   });
 
-  test("should be able to click button add task after input", async () => {
-    renderAddTask();
+  test("should be able to click button add task after input and delete project on click", async () => {
+    renderOverview();
     const buttonOpenElement = screen.getByTestId("buttonId-1");
     expect(buttonOpenElement).toBeInTheDocument();
     fireEvent.click(buttonOpenElement);
@@ -84,5 +103,9 @@ describe("test open/close task modal, type into input and select task date", () 
     expect(buttonAddElement).toBeInTheDocument();
     fireEvent.click(buttonAddElement);
     await waitForElementToBeRemoved(() => screen.getByTestId("headerId-1"));
+
+    const removeButtonElement = screen.getByTestId("Create modal");
+    fireEvent.click(removeButtonElement);
+    await waitForElementToBeRemoved(() => screen.getByTestId("Create modal"));
   });
 });

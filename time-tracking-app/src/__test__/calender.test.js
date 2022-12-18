@@ -1,7 +1,9 @@
 import Calender from "../pages/overview/Calender";
-import { render, screen } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { calenderYear, localMonth, localYear } from "../data/calenderData";
+
+afterEach(cleanup);
 
 describe("render Calender component and display the correct calender dates", () => {
   test("should render the calender component and have the correct date displayed", () => {

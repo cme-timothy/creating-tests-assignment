@@ -1,29 +1,35 @@
-import AddProject from "../pages/overview/AddProject";
 import { BrowserRouter as Router } from "react-router-dom";
 import {
   fireEvent,
   render,
   screen,
   waitForElementToBeRemoved,
+  cleanup,
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { DataProvider } from "../contexts/DataContext";
+import { HelmetProvider } from "react-helmet-async";
+import Overview from "../pages/overview/Overview";
 
-const renderAddProject = () => {
+const renderOverview = () => {
   const component = render(
-    <Router>
-      <DataProvider>
-        <AddProject />
-      </DataProvider>
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <DataProvider>
+          <Overview />
+        </DataProvider>
+      </Router>
+    </HelmetProvider>
   );
 
   return component;
 };
 
-describe("test open/close project modal, type into input and select project color", () => {
+afterEach(cleanup);
+
+describe("test open/close project modal, type into input, select project color and delete project on click", () => {
   test("should open and close project modal", async () => {
-    renderAddProject();
+    renderOverview();
     const buttonOpenElement = screen.getByTestId("buttonId-1");
     expect(buttonOpenElement).toBeInTheDocument();
     fireEvent.click(buttonOpenElement);
@@ -37,7 +43,7 @@ describe("test open/close project modal, type into input and select project colo
   });
 
   test("should be able to type into input", () => {
-    renderAddProject();
+    renderOverview();
     const buttonOpenElement = screen.getByTestId("buttonId-1");
     expect(buttonOpenElement).toBeInTheDocument();
     fireEvent.click(buttonOpenElement);
@@ -49,7 +55,7 @@ describe("test open/close project modal, type into input and select project colo
   });
 
   test("should be able to select project color blue", () => {
-    renderAddProject();
+    renderOverview();
     const buttonOpenElement = screen.getByTestId("buttonId-1");
     expect(buttonOpenElement).toBeInTheDocument();
     fireEvent.click(buttonOpenElement);
@@ -65,8 +71,8 @@ describe("test open/close project modal, type into input and select project colo
     `);
   });
 
-  test("should be able to click button add project after input", async () => {
-    renderAddProject();
+  test("should be able to click button add project after input and delete project on click, ", async () => {
+    renderOverview();
     const buttonOpenElement = screen.getByTestId("buttonId-1");
     expect(buttonOpenElement).toBeInTheDocument();
     fireEvent.click(buttonOpenElement);
@@ -80,5 +86,9 @@ describe("test open/close project modal, type into input and select project colo
     expect(buttonAddElement).toBeInTheDocument();
     fireEvent.click(buttonAddElement);
     await waitForElementToBeRemoved(() => screen.getByTestId("headerId-1"));
+
+    const removeButtonElement = screen.getByTestId("Create Website");
+    fireEvent.click(removeButtonElement);
+    await waitForElementToBeRemoved(() => screen.getByTestId("Create Website"));
   });
 });
