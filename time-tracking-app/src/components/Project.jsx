@@ -43,7 +43,6 @@ function Project(props) {
         {props.name}
       </Text>
       <Button
-        data-testid={`${props.name}`}
         bg="gray.200"
         onClick={handleClick}
       >

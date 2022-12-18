@@ -61,7 +61,6 @@ function Task(props) {
       </Box>
       {!props.play && !props.timer && (
         <Button
-          data-testid={`${props.name}`}
           bg="gray.200"
           onClick={handleDelete}
         >
