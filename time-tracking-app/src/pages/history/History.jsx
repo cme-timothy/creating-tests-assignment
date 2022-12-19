@@ -22,18 +22,17 @@ function History() {
   const [dates, setDates] = useState([]);
   const [date, setDate] = useState("");
 
-  useEffect(
-    () => {
-      getTasks();
-      const data = Array.from(new Set(tasks.map((item) => item.date)));
-      setDates(data);
-      if (date !== data[0] && dates.length === 0) {
-        setDate(data[0]);
-      }
-    },
-    [date],
-    []
-  );
+  useEffect(() => {
+    getTasks();
+  }, []);
+
+  useEffect(() => {
+    const data = Array.from(new Set(tasks.map((item) => item.date)));
+    setDates(data);
+    if (date !== data[0] && dates.length === 0) {
+      setDate(data[0]);
+    }
+  }, [tasks]);
 
   function handleMenuClick(date) {
     setDate(date);
@@ -52,6 +51,7 @@ function History() {
           <Menu>
             <Tooltip label={date === undefined && "Create a Task first"}>
               <MenuButton
+                data-testid="historySelect"
                 isDisabled={date === undefined ? true : false}
                 p="1em"
                 border={0}
@@ -69,6 +69,7 @@ function History() {
               {dates.map((datesData) => {
                 return (
                   <MenuItem
+                    data-testid={`${datesData}`}
                     onClick={() => handleMenuClick(datesData)}
                     key={datesData}
                   >

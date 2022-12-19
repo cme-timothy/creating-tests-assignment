@@ -11,14 +11,14 @@ describe("render Calender component and display the correct calender dates", () 
       Object.keys(calenderYear)[localMonth - 1]
     } ${localYear}`;
     function handleCalender() {}
-    render(<Calender date={handleCalender} />);
+    render(<Calender dates={handleCalender} />);
     const element = screen.getByTestId("calenderId-1");
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent(correctDate);
   });
 
   test("should render the correct amount of Day Button elements", () => {
-    render(<Calender date={() => null} />);
+    render(<Calender dates={() => null} />);
     const element = screen.getByText(
       `${Object.values(calenderYear)[localMonth - 1]}`
     );
