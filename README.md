@@ -24,7 +24,7 @@ npm install
 
 ## How to run project locally
 
-To setup a local development server, run:
+To setup a local development server run:
 
 ```
 npm run start
