@@ -120,6 +120,7 @@ function AddTask(props) {
             ></AddInput>
             <Menu>
               <MenuButton
+                data-testid="selectProject"
                 border={0}
                 mt="1em"
                 as={Button}
@@ -134,6 +135,7 @@ function AddTask(props) {
                 {props.projects.map((data) => {
                   return (
                     <MenuItem
+                      data-testid={data.name}
                       onClick={() =>
                         handleMenuClick(data.name, data.color, data.id)
                       }
@@ -145,7 +147,7 @@ function AddTask(props) {
                 })}
               </MenuList>
             </Menu>
-            <Calender date={handleCalender} />
+            <Calender dates={handleCalender} />
           </ModalBody>
 
           <ModalFooter>

@@ -1,6 +1,8 @@
-const localDay = Number(new Date().toLocaleString().slice(0, 2))
-const localMonth = Number(new Date().toLocaleString().slice(3, 5))
-const localYear = Number(new Date().toLocaleString().slice(6, 10))
+import date from "date-and-time";
+
+const localDay = Number(date.format(new Date(), "D"));
+const localMonth = Number(date.format(new Date(), "M"));
+const localYear = Number(new Date().toLocaleString().slice(6, 10));
 
 const calenderYear = {
   January: 31,
@@ -17,4 +19,4 @@ const calenderYear = {
   December: 31,
 };
 
-export {calenderYear,localDay, localMonth, localYear }
+export { calenderYear, localDay, localMonth, localYear };

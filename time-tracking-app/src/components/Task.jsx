@@ -52,7 +52,11 @@ function Task(props) {
           {props.name}
         </Text>
         {props.timer && (
-          <Text data-testid={`${props.name}-time`} fontSize="md" color="gray.500">
+          <Text
+            data-testid={`${props.name}-time`}
+            fontSize="md"
+            color="gray.500"
+          >
             {props.timerId === props.id
               ? props.currentTime
               : props.startingTime}
@@ -61,6 +65,7 @@ function Task(props) {
       </Box>
       {!props.play && !props.timer && (
         <Button
+          data-testid={`${props.name}-delete`}
           bg="gray.200"
           onClick={handleDelete}
         >
@@ -68,7 +73,13 @@ function Task(props) {
         </Button>
       )}
       {props.play && (
-        <Button data-testid={`${props.name}-play`} p={0} mr="1em" bg="gray.200" onClick={handlePlayButton}>
+        <Button
+          data-testid={`${props.name}-play`}
+          p={0}
+          mr="1em"
+          bg="gray.200"
+          onClick={handlePlayButton}
+        >
           {props.timerId !== props.id ? (
             <Box color="green.500">
               <FontAwesomeIcon icon={faCirclePlay} size="2xl" />

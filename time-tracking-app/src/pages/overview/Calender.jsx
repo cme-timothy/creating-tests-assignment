@@ -10,7 +10,7 @@ import {
   localYear,
 } from "../../data/calenderData";
 
-function Calender({ date }) {
+function Calender({ dates }) {
   const [days, setDays] = useState([]);
   const [day, setDay] = useState(localDay);
   const [month, setMonth] = useState(localMonth);
@@ -22,12 +22,12 @@ function Calender({ date }) {
       days.push(i);
     }
     setDays(days);
-    date(`${day} ${Object.keys(calenderYear)[month - 1]} ${year}`);
+    dates(`${day} ${Object.keys(calenderYear)[month - 1]} ${year}`);
   }, [month]);
 
   function activeDay(thisDay) {
     setDay(thisDay);
-    date(`${thisDay} ${Object.keys(calenderYear)[month - 1]} ${year}`);
+    dates(`${thisDay} ${Object.keys(calenderYear)[month - 1]} ${year}`);
   }
 
   function handleMonth(icon) {
@@ -52,6 +52,7 @@ function Calender({ date }) {
     <Box data-testid="calenderId-1" mt="2em" align="center">
       <Box>
         <Button
+          data-testid="backButton"
           onClick={() => handleMonth("back")}
           p={0}
           bg="none"
@@ -60,10 +61,11 @@ function Calender({ date }) {
         >
           {<ArrowBackIcon mb="0.2em" />}
         </Button>
-        <Text display="inline" fontSize="lg">
+        <Text data-testid="date" display="inline" fontSize="lg">
           {Object.keys(calenderYear)[month - 1]} {year}
         </Text>
         <Button
+          data-testid="forwardButton"
           onClick={handleMonth}
           p={0}
           bg="none"

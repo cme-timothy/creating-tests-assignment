@@ -39,10 +39,11 @@ function Project(props) {
       borderLeft="10px solid"
       borderColor={props.color}
     >
-      <Text mt="0.1em" fontSize="lg">
+      <Text data-testid={`${props.name}`} mt="0.1em" fontSize="lg">
         {props.name}
       </Text>
       <Button
+        data-testid={`${props.name}-delete`}
         bg="gray.200"
         onClick={handleClick}
       >
