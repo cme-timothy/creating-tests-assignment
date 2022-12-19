@@ -11,7 +11,7 @@ Before you proceed to install, you need to have the following tools installed:
 ## Move into the correct folder
 
 ```
-cd time-tracking-app
+cd time-tracking-app/
 ```
 
 ## How to install
